@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eef4ff">
+  <meta name="description" content="支持手机和电脑云端同步的易混英语单词总结">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.keyval.org; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'">
+  <title>易混单词总结</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">WORD BOOK</p>
+        <h1>易混单词总结</h1>
+        <p class="intro">点击发音学习单词；掌握后点右侧 ×，删除状态会自动同步。</p>
+      </div>
+      <div id="summary" class="summary" aria-live="polite"></div>
+    </header>
+
+    <div id="sync-status" class="sync-status" role="status" aria-live="polite">
+      <span class="sync-dot" aria-hidden="true"></span>
+      <span id="sync-text">正在读取本地词库…</span>
+    </div>
+
+    <section id="wordbook" class="wordbook" aria-label="易混单词列表"></section>
+    <noscript><p class="empty-state">请启用 JavaScript 后使用词库。</p></noscript>
+  </main>
+
+  <script src="./data.js"></script>
+  <script src="./config.js"></script>
+  <script src="./sync.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
