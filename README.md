@@ -6,8 +6,12 @@
 
 - `index.html`：页面骨架
 - `data.js`：词库数据和不可变 ID 注册表
-- `app.js`：页面渲染与英文发音
+- `listening-data.js`：听力讲座词库（含稳定 ID、IPA、词性、释义和音频链接）
+- `app.js`：原生词本页面渲染
+- `listening.js`：听力讲座未会/已会界面和站内入口
+- `audio.js`：真实词典录音优先、自然美音回退
 - `sync.js`：本地优先、旧记录迁移和跨设备云同步
+- `listening-sync.js`：听力状态的可逆云端同步与旧 localStorage 迁移
 - `config.js`：同步配置
 - `style.css`：电脑和手机响应式样式
 - `.github/workflows/pages.yml`：GitHub Pages 自动部署
@@ -19,3 +23,5 @@
 ## 同步模型
 
 页面采用本地优先删除：点击后立刻写入本地并隐藏，随后在后台与云端做集合并集。云端只传播“已删除”墓碑，不提供恢复操作。旧版本 `localStorage` 和旧 KeyVal 位图会在首次加载时自动并入新状态。
+
+“听力讲座”复用同一个 KeyVal 云端服务，每个稳定词条 ID 使用独立状态键保存 `known` 或 `unknown`。同一词并发修改时，云端最后一次成功写入为准；浏览器缓存只用于首屏和离线待提交，不会把旧缓存当作服务器状态。

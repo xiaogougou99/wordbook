@@ -76,21 +76,14 @@
     }
   }
 
-  function speakEnglish(text) {
-    if (!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "en-US";
-    utterance.rate = 0.82;
-    window.speechSynthesis.speak(utterance);
-  }
-
-  root.addEventListener("click", (event) => {
+  root.addEventListener("click", async (event) => {
     const button = event.target.closest("button");
     if (!button) return;
 
     if (button.dataset.speak) {
-      speakEnglish(button.dataset.speak);
+      button.setAttribute("aria-busy", "true");
+      await window.WordbookAudio.play(button.dataset.speak);
+      button.removeAttribute("aria-busy");
       return;
     }
 

@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#eef4ff">
-  <meta name="description" content="支持手机和电脑云端同步的易混英语单词总结">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.keyval.org; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'">
-  <title>易混单词总结</title>
+  <meta name="description" content="支持手机和电脑云端同步的英语生词本">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.keyval.org https://api.dictionaryapi.dev; media-src 'self' https://api.dictionaryapi.dev https://ssl.gstatic.com; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'">
+  <title>英语生词本</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -14,24 +14,60 @@
     <header class="page-header">
       <div>
         <p class="eyebrow">WORD BOOK</p>
-        <h1>易混单词总结</h1>
-        <p class="intro">点击发音学习单词；掌握后点右侧 ×，删除状态会自动同步。</p>
+        <h1>英语生词本</h1>
+        <p class="intro">同一网站、同一云端状态，手机和电脑自动同步。</p>
       </div>
-      <div id="summary" class="summary" aria-live="polite"></div>
     </header>
 
-    <div id="sync-status" class="sync-status" role="status" aria-live="polite">
-      <span class="sync-dot" aria-hidden="true"></span>
-      <span id="sync-text">正在读取本地词库…</span>
-    </div>
+    <nav class="site-nav" aria-label="词库切换">
+      <button type="button" class="site-nav-button is-active" data-route="wordbook" aria-current="page">原来的生词本</button>
+      <button type="button" class="site-nav-button" data-route="listening">听力讲座</button>
+    </nav>
 
-    <section id="wordbook" class="wordbook" aria-label="易混单词列表"></section>
+    <section id="wordbook-view" class="page-view" data-view="wordbook">
+      <div id="summary" class="summary" aria-live="polite"></div>
+      <div id="sync-status" class="sync-status" role="status" aria-live="polite">
+        <span class="sync-dot" aria-hidden="true"></span>
+        <span id="sync-text">正在读取本地词库…</span>
+      </div>
+
+      <section id="wordbook" class="wordbook" aria-label="易混单词列表"></section>
+    </section>
+
+    <section id="listening-view" class="page-view listening-view" data-view="listening" hidden>
+      <div class="listening-header">
+        <div>
+          <p class="eyebrow">LISTENING LECTURE</p>
+          <h2>听力讲座</h2>
+        </div>
+        <div class="learning-tabs" role="tablist" aria-label="学习状态">
+          <button type="button" id="unknown-tab" class="learning-tab is-active" data-learning-view="unknown" role="tab" aria-selected="true">
+            未会（<span id="unknown-count">0</span>）
+          </button>
+          <button type="button" id="known-tab" class="learning-tab" data-learning-view="known" role="tab" aria-selected="false">
+            已会（<span id="known-count">0</span>）
+          </button>
+        </div>
+      </div>
+
+      <div id="listening-sync-status" class="sync-status" role="status" aria-live="polite">
+        <span class="sync-dot" aria-hidden="true"></span>
+        <span id="listening-sync-text">打开“听力讲座”后将读取云端学习状态</span>
+      </div>
+
+      <div id="listening-list" class="listening-list" role="tabpanel" aria-live="polite"></div>
+    </section>
+
     <noscript><p class="empty-state">请启用 JavaScript 后使用词库。</p></noscript>
   </main>
 
   <script src="./data.js"></script>
+  <script src="./listening-data.js"></script>
   <script src="./config.js"></script>
+  <script src="./audio.js"></script>
   <script src="./sync.js"></script>
+  <script src="./listening-sync.js"></script>
   <script src="./app.js"></script>
+  <script src="./listening.js"></script>
 </body>
 </html>

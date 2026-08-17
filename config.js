@@ -17,3 +17,15 @@ window.WORDBOOK_CONFIG = Object.freeze({
   syncIntervalMs: 90000,
   requestTimeoutMs: 10000
 });
+
+window.LISTENING_CONFIG = Object.freeze({
+  cloudApi: "https://api.keyval.org",
+  stateKeyPrefix: "wordbook-listening-status-v1",
+  localCacheKey: "wordbook.listening.cache.v1",
+  localPendingKey: "wordbook.listening.pending.v1",
+  migrationMarkerKey: "wordbook.listening.migrated.v1",
+  legacyKnownKey: "listening_lecture_known_words_v1",
+  requestTimeoutMs: 10000,
+  refreshIntervalMs: 300000,
+  readConcurrency: 12
+});
