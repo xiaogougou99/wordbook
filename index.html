@@ -20,8 +20,8 @@
     </header>
 
     <nav class="site-nav" aria-label="词库切换">
-      <button type="button" class="site-nav-button is-active" data-route="wordbook" aria-current="page">原来的生词本</button>
-      <button type="button" class="site-nav-button" data-route="listening">听力讲座</button>
+      <button type="button" class="site-nav-button is-active" data-route="wordbook" aria-current="page">单词本</button>
+      <button type="button" class="site-nav-button" data-route="listening">句子本</button>
     </nav>
 
     <section id="wordbook-view" class="page-view" data-view="wordbook">
@@ -37,8 +37,8 @@
     <section id="listening-view" class="page-view listening-view" data-view="listening" hidden>
       <div class="listening-header">
         <div>
-          <p class="eyebrow">LISTENING LECTURE</p>
-          <h2>听力讲座</h2>
+          <p class="eyebrow">SENTENCE BOOK</p>
+          <h2>句子本</h2>
         </div>
         <div class="learning-tabs" role="tablist" aria-label="学习状态">
           <button type="button" id="unknown-tab" class="learning-tab is-active" data-learning-view="unknown" role="tab" aria-selected="true">
@@ -52,7 +52,7 @@
 
       <div id="listening-sync-status" class="sync-status" role="status" aria-live="polite">
         <span class="sync-dot" aria-hidden="true"></span>
-        <span id="listening-sync-text">打开“听力讲座”后将读取云端学习状态</span>
+        <span id="listening-sync-text">打开“句子本”后将读取云端学习状态</span>
       </div>
 
       <div id="meaning-sync-status" class="meaning-sync-status" role="status" aria-live="polite">
