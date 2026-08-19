@@ -4,6 +4,7 @@
   const config = window.LISTENING_CONFIG;
   const words = Array.isArray(window.LISTENING_WORDS) ? window.LISTENING_WORDS : [];
   const wordIds = new Set(words.map((word) => word.id));
+  const baseMeanings = new Map(words.map((word) => [word.id, word.meaning]));
   const statusBox = document.getElementById("meaning-sync-status");
   const statusText = document.getElementById("meaning-sync-text");
   const channel = "BroadcastChannel" in window ? new BroadcastChannel("wordbook-listening-meaning-v1") : null;
@@ -43,7 +44,7 @@
       if (
         wordIds.has(id)
         && operation
-        && typeof operation.meaning === "string"
+        && (typeof operation.meaning === "string" || operation.meaning === null)
         && Number.isFinite(operation.clientUpdatedAt)
       ) {
         cleanPending[id] = operation;
@@ -91,9 +92,8 @@
     const match = /^v1\|(\d+)\|([\s\S]*)$/.exec(value || "");
     if (!match) return null;
     const meaning = parseJson(match[2]);
-    return typeof meaning === "string"
-      ? { meaning, updatedAt: Number(match[1]) }
-      : null;
+    if (meaning === null) return { useDefault: true, updatedAt: Number(match[1]) };
+    return typeof meaning === "string" ? { meaning, updatedAt: Number(match[1]) } : null;
   }
 
   async function fetchWithTimeout(url) {
@@ -114,7 +114,7 @@
       if (!response.ok) return { ok: false };
       const parsed = parseRemoteMeaning(responseValue(await response.text()));
       return parsed
-        ? { ok: true, hasOverride: true, ...parsed }
+        ? { ok: true, hasOverride: !parsed.useDefault, ...parsed }
         : { ok: true, hasOverride: false, updatedAt: 0 };
     } catch {
       return { ok: false };
@@ -241,8 +241,10 @@
   function setMeaning(id, nextMeaning) {
     if (!wordIds.has(id)) return false;
     const normalized = String(nextMeaning ?? "").trim().slice(0, config.meaningMaxLength);
-    const operation = { meaning: normalized, clientUpdatedAt: Date.now() };
-    overrides[id] = normalized;
+    const storedMeaning = normalized === baseMeanings.get(id) ? null : normalized;
+    const operation = { meaning: storedMeaning, clientUpdatedAt: Date.now() };
+    if (storedMeaning === null) delete overrides[id];
+    else overrides[id] = storedMeaning;
     pending[id] = operation;
     writeObject(config.meaningCacheKey, overrides);
     writeObject(config.meaningPendingKey, pending);
@@ -288,9 +290,14 @@
   channel?.addEventListener("message", (event) => {
     if (event.data?.type === "optimistic-meaning") {
       const { id, operation } = event.data;
-      if (wordIds.has(id) && operation && typeof operation.meaning === "string") {
+      if (
+        wordIds.has(id)
+        && operation
+        && (typeof operation.meaning === "string" || operation.meaning === null)
+      ) {
         pending[id] = operation;
-        overrides[id] = operation.meaning;
+        if (operation.meaning === null) delete overrides[id];
+        else overrides[id] = operation.meaning;
         writeObject(config.meaningCacheKey, overrides);
         writeObject(config.meaningPendingKey, pending);
         emitState();
