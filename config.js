@@ -21,11 +21,15 @@ window.WORDBOOK_CONFIG = Object.freeze({
 window.LISTENING_CONFIG = Object.freeze({
   cloudApi: "https://api.keyval.org",
   stateKeyPrefix: "wordbook-listening-status-v1",
+  meaningKeyPrefix: "wordbook-listening-meaning-v1",
   localCacheKey: "wordbook.listening.cache.v1",
   localPendingKey: "wordbook.listening.pending.v1",
+  meaningCacheKey: "wordbook.listening.meaning-cache.v1",
+  meaningPendingKey: "wordbook.listening.meaning-pending.v1",
   migrationMarkerKey: "wordbook.listening.migrated.v1",
   legacyKnownKey: "listening_lecture_known_words_v1",
   requestTimeoutMs: 10000,
   refreshIntervalMs: 300000,
-  readConcurrency: 12
+  readConcurrency: 12,
+  meaningMaxLength: 160
 });

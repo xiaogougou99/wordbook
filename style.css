@@ -340,13 +340,94 @@ h1 {
   white-space: nowrap;
 }
 
+.listening-meaning-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
 .listening-meaning {
+  flex: 1 1 auto;
   min-width: 0;
   overflow-wrap: anywhere;
   color: #173a5d;
   font-size: 15px;
   line-height: 1.4;
 }
+
+.listening-meaning.is-empty {
+  color: #8a9caf;
+  font-style: italic;
+}
+
+.meaning-edit-button,
+.meaning-editor-button {
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0 8px;
+  border: 1px solid #c5d5e5;
+  border-radius: 9px;
+  background: #f7fbff;
+  color: #315f8d;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.meaning-edit-button {
+  flex: 0 0 38px;
+  padding: 0;
+  font-size: 18px;
+}
+
+.meaning-edit-button:hover,
+.meaning-editor-button:hover {
+  border-color: #8faecd;
+  background: #edf6ff;
+}
+
+.meaning-editor {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) auto auto;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+}
+
+.meaning-input {
+  min-width: 0;
+  min-height: 40px;
+  padding: 7px 9px;
+  border: 1px solid #8faecd;
+  border-radius: 9px;
+  color: #173a5d;
+  font: inherit;
+  background: #fff;
+}
+
+.meaning-input:focus {
+  outline: 3px solid rgba(37, 99, 167, 0.2);
+  outline-offset: 1px;
+}
+
+.meaning-save {
+  border-color: #91c4a5;
+  color: var(--ok);
+}
+
+.meaning-cancel {
+  color: var(--muted);
+}
+
+.meaning-sync-status {
+  margin: -6px 4px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.meaning-sync-status.is-ok { color: var(--ok); }
+.meaning-sync-status.is-warn { color: var(--warn); }
 
 .listening-action {
   min-height: 44px;
@@ -463,6 +544,32 @@ h1 {
   }
   .listening-pos { flex: 0 0 auto; font-size: 12px; }
   .listening-meaning { font-size: 14px; line-height: 1.35; }
+  .listening-meaning-wrap { flex: 1 1 auto; }
+  .meaning-edit-button {
+    flex-basis: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .meaning-editor {
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+  .listening-details.is-editing {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .listening-details.is-editing .listening-pos { white-space: normal; }
+  .listening-details.is-editing .meaning-editor { width: 100%; }
+  .listening-details.is-editing .meaning-input { grid-column: 1 / -1; }
+  .meaning-editor-button {
+    min-width: 50px;
+    min-height: 44px;
+    padding: 0 4px;
+    font-size: 13px;
+  }
+  .meaning-input { min-height: 44px; }
+  .meaning-sync-status { margin-left: 6px; margin-right: 6px; }
   .listening-audio {
     grid-column: 2;
     grid-row: 1 / 4;
