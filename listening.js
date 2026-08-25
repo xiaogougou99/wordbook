@@ -83,8 +83,8 @@
     const visible = words.filter((word) => statuses[word.id] === learningView);
     const fragment = document.createDocumentFragment();
 
-    for (const word of visible) {
-      const originalNumber = words.indexOf(word) + 1;
+    for (const [visibleIndex, word] of visible.entries()) {
+      const displayNumber = visibleIndex + 1;
       const row = document.createElement("article");
       row.className = "listening-row";
       row.dataset.listeningId = word.id;
@@ -92,7 +92,7 @@
       const primary = document.createElement("div");
       primary.className = "listening-primary";
       primary.append(
-        createText("span", "listening-number", originalNumber + "."),
+        createText("span", "listening-number", displayNumber + "."),
         createText("span", "listening-word", word.word)
       );
 
