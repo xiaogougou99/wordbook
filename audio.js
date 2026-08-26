@@ -225,8 +225,10 @@
   async function play(text, providedUrl = "") {
     stopCurrentAudio();
     const direct = normalizedUrl(providedUrl);
+    if (direct && isSameOriginUrl(direct) && await playSameOriginRecording(direct)) {
+      return "local-recording";
+    }
     if (direct && await playReadyRecording(direct)) return "dictionary";
-    if (direct && await playSameOriginRecording(direct)) return "local-recording";
 
     const lookup = text.trim().toLowerCase();
     const cached = resolvedAudio.get(lookup);
