@@ -74,6 +74,64 @@
     return wrapper;
   }
 
+  function pronunciationOptions(word) {
+    return Array.isArray(word.pronunciations) && word.pronunciations.length
+      ? word.pronunciations
+      : [{ text: word.word, phonetic: word.phonetic, audio: word.audio || "" }];
+  }
+
+  function createPhonetic(word) {
+    const phonetic = document.createElement("div");
+    phonetic.className = "listening-phonetic";
+    const options = pronunciationOptions(word);
+
+    if (!Array.isArray(word.pronunciations) || !word.pronunciations.length) {
+      phonetic.textContent = word.phonetic || "";
+      return phonetic;
+    }
+
+    phonetic.classList.add("has-variants");
+    for (const option of options) {
+      const line = document.createElement("span");
+      line.className = "pronunciation-line";
+      line.append(
+        createText(
+          "span",
+          "pronunciation-label",
+          option.label + (option.part_of_speech ? " " + option.part_of_speech : "")
+        ),
+        createText("span", "pronunciation-ipa", option.phonetic)
+      );
+      phonetic.append(line);
+    }
+    return phonetic;
+  }
+
+  function createAudioControls(word) {
+    const group = document.createElement("div");
+    group.className = "listening-audio-group";
+    const options = pronunciationOptions(word);
+    const labeled = options.length > 1;
+
+    for (const option of options) {
+      const audio = createText(
+        "button",
+        "listening-action listening-audio" + (labeled ? " is-labeled" : ""),
+        labeled ? "🔊 " + option.label : "🔊"
+      );
+      audio.type = "button";
+      audio.dataset.audioId = word.id;
+      audio.dataset.audioText = option.text || word.word;
+      audio.dataset.audioUrl = option.audio || "";
+      audio.setAttribute(
+        "aria-label",
+        "播放 " + word.word + (option.label ? "（" + option.label + "）" : "") + " 的美式发音"
+      );
+      group.append(audio);
+    }
+    return group;
+  }
+
   function render() {
     const knownTotal = words.filter((word) => statuses[word.id] === "known").length;
     const unknownTotal = words.length - knownTotal;
@@ -104,10 +162,7 @@
         createMeaningEditor(word)
       );
 
-      const audio = createText("button", "listening-action listening-audio", "🔊");
-      audio.type = "button";
-      audio.dataset.audioId = word.id;
-      audio.setAttribute("aria-label", "播放 " + word.word + " 的美式发音");
+      const audioControls = createAudioControls(word);
 
       const statusAction = document.createElement("button");
       statusAction.type = "button";
@@ -127,9 +182,9 @@
 
       row.append(
         primary,
-        createText("div", "listening-phonetic", word.phonetic),
+        createPhonetic(word),
         details,
-        audio,
+        audioControls,
         statusAction
       );
       fragment.append(row);
@@ -234,7 +289,10 @@
       const word = words.find((entry) => entry.id === button.dataset.audioId);
       if (!word) return;
       button.setAttribute("aria-busy", "true");
-      await window.WordbookAudio.play(word.word, word.audio);
+      await window.WordbookAudio.play(
+        button.dataset.audioText || word.word,
+        button.dataset.audioUrl || word.audio
+      );
       button.removeAttribute("aria-busy");
     }
   });
@@ -243,7 +301,12 @@
     const button = event.target.closest("[data-audio-id]");
     if (!button) return;
     const word = words.find((entry) => entry.id === button.dataset.audioId);
-    if (word) window.WordbookAudio.prepare(word.word, word.audio);
+    if (word) {
+      window.WordbookAudio.prepare(
+        button.dataset.audioText || word.word,
+        button.dataset.audioUrl || word.audio
+      );
+    }
   });
 
   list.addEventListener("input", (event) => {

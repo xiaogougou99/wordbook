@@ -283,7 +283,7 @@ h1 {
 
 .listening-row {
   display: grid;
-  grid-template-columns: minmax(190px, 1.1fr) minmax(135px, 0.85fr) minmax(0, 1.65fr) 48px minmax(56px, auto);
+  grid-template-columns: minmax(190px, 1.1fr) minmax(135px, 0.85fr) minmax(0, 1.65fr) minmax(48px, auto) minmax(56px, auto);
   gap: 12px;
   align-items: center;
   min-height: 58px;
@@ -324,6 +324,22 @@ h1 {
   font-family: Arial, "Noto Sans", sans-serif;
   font-size: 14px;
   line-height: 1.35;
+}
+
+.listening-phonetic.has-variants {
+  display: grid;
+  gap: 4px;
+}
+
+.pronunciation-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.pronunciation-label {
+  color: #315f8d;
+  font-weight: 700;
 }
 
 .listening-details {
@@ -450,6 +466,20 @@ h1 {
   font-size: 18px;
 }
 
+.listening-audio-group {
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+}
+
+.listening-audio.is-labeled {
+  width: 76px;
+  min-height: 38px;
+  padding: 0 6px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
 .listening-audio[aria-busy="true"] { opacity: 0.55; }
 
 .listening-status-action {
@@ -519,7 +549,7 @@ h1 {
   .learning-tab { min-height: 48px; }
   .listening-list { border-radius: 12px; }
   .listening-row {
-    grid-template-columns: minmax(0, 1fr) 48px 64px;
+    grid-template-columns: minmax(0, 1fr) 78px 64px;
     grid-template-rows: auto auto auto;
     gap: 3px 7px;
     min-height: 91px;
@@ -570,11 +600,18 @@ h1 {
   }
   .meaning-input { min-height: 44px; }
   .meaning-sync-status { margin-left: 6px; margin-right: 6px; }
-  .listening-audio {
+  .listening-audio-group {
     grid-column: 2;
     grid-row: 1 / 4;
     align-self: center;
+    width: 100%;
+  }
+  .listening-audio {
     min-height: 48px;
+  }
+  .listening-audio.is-labeled {
+    width: 100%;
+    min-height: 44px;
   }
   .listening-status-action {
     grid-column: 3;

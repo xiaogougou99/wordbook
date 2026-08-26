@@ -56,6 +56,14 @@
     return url.startsWith("//") ? "https:" + url : url;
   }
 
+  function isSameOriginUrl(url) {
+    try {
+      return new URL(normalizedUrl(url), window.location.href).origin === window.location.origin;
+    } catch {
+      return false;
+    }
+  }
+
   function stopCurrentAudio() {
     try {
       audioPlayer.pause();
@@ -91,6 +99,19 @@
   async function playReadyRecording(url) {
     const normalized = normalizedUrl(url);
     if (!normalized || !readyRecordings.has(normalized)) return false;
+    try {
+      audioPlayer.src = normalized;
+      audioPlayer.currentTime = 0;
+      await audioPlayer.play();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async function playSameOriginRecording(url) {
+    const normalized = normalizedUrl(url);
+    if (!normalized || !isSameOriginUrl(normalized)) return false;
     try {
       audioPlayer.src = normalized;
       audioPlayer.currentTime = 0;
@@ -177,7 +198,12 @@
     if (preloadStarted) return;
     preloadStarted = true;
 
-    const direct = entries.filter((entry) => entry?.audio);
+    const direct = entries
+      .flatMap((entry) => [
+        entry,
+        ...(Array.isArray(entry?.pronunciations) ? entry.pronunciations : [])
+      ])
+      .filter((entry) => entry?.audio);
     runWithConcurrency(direct, 4, (entry) => preloadRecording(entry.audio));
 
     const firstSingleWords = entries
@@ -200,6 +226,7 @@
     stopCurrentAudio();
     const direct = normalizedUrl(providedUrl);
     if (direct && await playReadyRecording(direct)) return "dictionary";
+    if (direct && await playSameOriginRecording(direct)) return "local-recording";
 
     const lookup = text.trim().toLowerCase();
     const cached = resolvedAudio.get(lookup);
