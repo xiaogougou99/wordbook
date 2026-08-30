@@ -7,6 +7,10 @@
 - `index.html`：页面骨架
 - `data.js`：词库数据和不可变 ID 注册表
 - `listening-data.js`：听力讲座词库（含稳定 ID、IPA、词性、释义和音频链接）
+- `speaking-material.docx`：口语材料原始 Word 文件副本
+- `speaking-material.html`：从 Word 原文生成的网页阅读版
+- `speaking-material.css`：口语材料的电脑和手机阅读样式
+- `tools/build-speaking-material.py`：接受 Word 中可见的修订并生成确定性网页文件
 - `app.js`：原生词本页面渲染
 - `listening.js`：听力讲座未会/已会界面、释义行内编辑和站内入口
 - `audio.js`：提前缓存真实词典录音，首次点击无网络等待并用自然美音即时回退
@@ -28,3 +32,5 @@
 “听力讲座”复用同一个 KeyVal 云端服务，每个稳定词条 ID 使用独立状态键保存 `known` 或 `unknown`。同一词并发修改时，云端最后一次成功写入为准；浏览器缓存只用于首屏和离线待提交，不会把旧缓存当作服务器状态。
 
 中文释义同样按稳定词条 ID 使用独立云端键保存。点击释义旁的 `✎` 可以添加、删除、修改或清空释义；保存后立即更新界面并在后台同步到其他设备。
+
+“口语材料”是只读内容。网页由 `speaking-material.docx` 的可见正文生成，不增删或改写原文；源文件变更时重新运行生成脚本即可更新。

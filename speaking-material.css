@@ -1,0 +1,120 @@
+:root {
+  color-scheme: light;
+  font-family: Aptos, Calibri, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  min-width: 0;
+  background: #fff;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-width: 0;
+  margin: 0;
+  background: #fff;
+}
+
+.speaking-document {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 42px clamp(22px, 5vw, 62px) 72px;
+  overflow-wrap: anywhere;
+  font-size: 17px;
+  line-height: 1.58;
+}
+
+.doc-title {
+  margin: 0 0 34px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #4f81bd;
+  color: #173a63;
+  font-size: clamp(27px, 4vw, 38px);
+  font-weight: 750;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.doc-heading {
+  margin: 36px 0 12px;
+  color: #315f91;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.doc-heading-1 { font-size: clamp(23px, 3vw, 30px); }
+.doc-heading-2 { font-size: clamp(19px, 2.4vw, 24px); }
+.doc-heading-3 { font-size: 18px; }
+
+.doc-paragraph,
+.doc-table-paragraph {
+  margin: 0 0 10px;
+  margin-left: var(--doc-left-indent, 0);
+  text-indent: var(--doc-first-indent, 0);
+  white-space: normal;
+}
+
+.doc-spacer { height: 20px; }
+
+.doc-list-item {
+  display: grid;
+  grid-template-columns: 1.35em minmax(0, 1fr);
+  gap: 2px;
+  margin-left: var(--doc-left-indent, 0);
+  text-indent: 0;
+}
+
+.doc-list-marker { text-align: left; }
+.doc-list-content { min-width: 0; }
+
+a { color: #215f9a; }
+
+.doc-table-wrap {
+  width: 100%;
+  margin: 14px 0 28px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td {
+  min-width: 0;
+  padding: 5px 9px;
+  border: 1px solid #333;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.doc-table-paragraph { margin: 0; }
+
+@media (max-width: 600px) {
+  .speaking-document {
+    padding: 22px 14px 52px;
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  .doc-title {
+    margin-bottom: 24px;
+    font-size: 27px;
+  }
+
+  .doc-heading { margin-top: 28px; }
+  .doc-spacer { height: 13px; }
+  .doc-paragraph { margin-left: min(var(--doc-left-indent, 0), 20px); }
+  td { padding: 5px 6px; font-size: 14px; }
+}
+
+@media print {
+  .speaking-document {
+    width: 100%;
+    padding: 0;
+  }
+}

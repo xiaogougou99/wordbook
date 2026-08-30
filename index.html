@@ -19,9 +19,10 @@
       </div>
     </header>
 
-    <nav class="site-nav" aria-label="词库切换">
+    <nav class="site-nav" aria-label="内容切换">
       <button type="button" class="site-nav-button is-active" data-route="wordbook" aria-current="page">单词本</button>
       <button type="button" class="site-nav-button" data-route="listening">句子本</button>
+      <button type="button" class="site-nav-button" data-route="speaking">口语材料</button>
     </nav>
 
     <section id="wordbook-view" class="page-view" data-view="wordbook">
@@ -60,6 +61,17 @@
       </div>
 
       <div id="listening-list" class="listening-list" role="tabpanel" aria-live="polite"></div>
+    </section>
+
+    <section id="speaking-view" class="page-view speaking-view" data-view="speaking" hidden>
+      <iframe
+        id="speaking-material-frame"
+        class="speaking-material-frame"
+        src="./speaking-material.html"
+        title="口语材料"
+        loading="eager"
+        scrolling="no"
+      ></iframe>
     </section>
 
     <noscript><p class="empty-state">请启用 JavaScript 后使用词库。</p></noscript>

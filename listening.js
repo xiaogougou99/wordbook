@@ -8,6 +8,7 @@
   const routeButtons = [...document.querySelectorAll("[data-route]")];
   const pageViews = [...document.querySelectorAll(".page-view")];
   const learningTabs = [...document.querySelectorAll("[data-learning-view]")];
+  const speakingFrame = document.getElementById("speaking-material-frame");
 
   let learningView = "unknown";
   let statuses = window.ListeningStatusSync.getStatuses();
@@ -212,8 +213,21 @@
     render();
   }
 
+  function resizeSpeakingFrame() {
+    if (!speakingFrame?.contentDocument) return;
+    const documentElement = speakingFrame.contentDocument.documentElement;
+    const body = speakingFrame.contentDocument.body;
+    const height = Math.max(
+      documentElement?.scrollHeight || 0,
+      documentElement?.offsetHeight || 0,
+      body?.scrollHeight || 0,
+      body?.offsetHeight || 0
+    );
+    if (height) speakingFrame.style.height = height + "px";
+  }
+
   function showRoute(route) {
-    const selected = route === "listening" ? "listening" : "wordbook";
+    const selected = ["listening", "speaking"].includes(route) ? route : "wordbook";
     for (const view of pageViews) view.hidden = view.dataset.view !== selected;
     for (const button of routeButtons) {
       const active = button.dataset.route === selected;
@@ -229,6 +243,7 @@
       window.ListeningStatusSync.start();
       window.ListeningMeaningSync.start();
     }
+    if (selected === "speaking") requestAnimationFrame(resizeSpeakingFrame);
   }
 
   routeButtons.forEach((button) => {
@@ -337,6 +352,11 @@
     render();
   });
   window.addEventListener("hashchange", () => showRoute(location.hash.slice(1)));
+  window.addEventListener("resize", resizeSpeakingFrame);
+  speakingFrame?.addEventListener("load", () => {
+    resizeSpeakingFrame();
+    speakingFrame.contentDocument?.fonts?.ready.then(resizeSpeakingFrame);
+  });
 
   setLearningView("unknown");
   showRoute(location.hash.slice(1));

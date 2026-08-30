@@ -71,7 +71,7 @@ h1 {
 
 .site-nav {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   margin-bottom: 14px;
   padding: 5px;
@@ -507,13 +507,29 @@ h1 {
   box-shadow: none;
 }
 
+.speaking-view {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.speaking-material-frame {
+  display: block;
+  width: 100%;
+  min-height: 80vh;
+  border: 0;
+  background: #fff;
+}
+
 @media (max-width: 720px) {
   .page-shell { padding-left: 8px; padding-right: 8px; }
   .page-header { display: block; padding: 4px 5px 16px; }
   .summary { margin: 0 5px 9px; white-space: normal; }
   .intro { font-size: 14px; line-height: 1.5; }
   .site-nav { margin-bottom: 11px; }
-  .site-nav-button { min-height: 48px; }
+  .site-nav-button { min-height: 48px; padding: 0 5px; font-size: 15px; }
   .sync-status { margin-bottom: 10px; border-radius: 11px; }
   .wordbook { gap: 10px; }
   .word-group { border-radius: 14px; }
@@ -621,6 +637,7 @@ h1 {
     min-height: 48px;
     padding: 0 5px;
   }
+  .speaking-view { border-radius: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
