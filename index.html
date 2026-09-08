@@ -23,6 +23,7 @@
       <button type="button" class="site-nav-button is-active" data-route="wordbook" aria-current="page">单词本</button>
       <button type="button" class="site-nav-button" data-route="listening">句子本</button>
       <button type="button" class="site-nav-button" data-route="speaking">口语材料</button>
+      <button type="button" class="site-nav-button" data-route="writing">写作</button>
     </nav>
 
     <section id="wordbook-view" class="page-view" data-view="wordbook">
@@ -67,8 +68,21 @@
       <iframe
         id="speaking-material-frame"
         class="speaking-material-frame"
+        data-material-frame="speaking"
         src="./speaking-material.html"
         title="口语材料"
+        loading="eager"
+        scrolling="no"
+      ></iframe>
+    </section>
+
+    <section id="writing-view" class="page-view writing-view" data-view="writing" hidden>
+      <iframe
+        id="writing-material-frame"
+        class="speaking-material-frame"
+        data-material-frame="writing"
+        src="./writing-material.html"
+        title="写作材料"
         loading="eager"
         scrolling="no"
       ></iframe>

@@ -8,7 +8,7 @@
   const routeButtons = [...document.querySelectorAll("[data-route]")];
   const pageViews = [...document.querySelectorAll(".page-view")];
   const learningTabs = [...document.querySelectorAll("[data-learning-view]")];
-  const speakingFrame = document.getElementById("speaking-material-frame");
+  const materialFrames = [...document.querySelectorAll("[data-material-frame]")];
 
   let learningView = "unknown";
   let statuses = window.ListeningStatusSync.getStatuses();
@@ -213,21 +213,25 @@
     render();
   }
 
-  function resizeSpeakingFrame() {
-    if (!speakingFrame?.contentDocument) return;
-    const documentElement = speakingFrame.contentDocument.documentElement;
-    const body = speakingFrame.contentDocument.body;
+  function resizeMaterialFrame(frame) {
+    if (!frame?.contentDocument) return;
+    const documentElement = frame.contentDocument.documentElement;
+    const body = frame.contentDocument.body;
     const height = Math.max(
       documentElement?.scrollHeight || 0,
       documentElement?.offsetHeight || 0,
       body?.scrollHeight || 0,
       body?.offsetHeight || 0
     );
-    if (height) speakingFrame.style.height = height + "px";
+    if (height) frame.style.height = height + "px";
+  }
+
+  function resizeMaterialFrames() {
+    for (const frame of materialFrames) resizeMaterialFrame(frame);
   }
 
   function showRoute(route) {
-    const selected = ["listening", "speaking"].includes(route) ? route : "wordbook";
+    const selected = ["listening", "speaking", "writing"].includes(route) ? route : "wordbook";
     for (const view of pageViews) view.hidden = view.dataset.view !== selected;
     for (const button of routeButtons) {
       const active = button.dataset.route === selected;
@@ -243,7 +247,7 @@
       window.ListeningStatusSync.start();
       window.ListeningMeaningSync.start();
     }
-    if (selected === "speaking") requestAnimationFrame(resizeSpeakingFrame);
+    if (["speaking", "writing"].includes(selected)) requestAnimationFrame(resizeMaterialFrames);
   }
 
   routeButtons.forEach((button) => {
@@ -352,11 +356,13 @@
     render();
   });
   window.addEventListener("hashchange", () => showRoute(location.hash.slice(1)));
-  window.addEventListener("resize", resizeSpeakingFrame);
-  speakingFrame?.addEventListener("load", () => {
-    resizeSpeakingFrame();
-    speakingFrame.contentDocument?.fonts?.ready.then(resizeSpeakingFrame);
-  });
+  window.addEventListener("resize", resizeMaterialFrames);
+  for (const frame of materialFrames) {
+    frame.addEventListener("load", () => {
+      resizeMaterialFrame(frame);
+      frame.contentDocument?.fonts?.ready.then(() => resizeMaterialFrame(frame));
+    });
+  }
 
   setLearningView("unknown");
   showRoute(location.hash.slice(1));
