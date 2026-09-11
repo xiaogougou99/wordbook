@@ -248,6 +248,25 @@ body {
   padding-top: 10px;
 }
 
+.closing-rule {
+  margin-top: 16px;
+  padding: 17px 19px;
+  border: 1px solid #d9e3ee;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(35, 72, 112, 0.06);
+}
+
+.closing-rule p {
+  margin: 8px 0 0;
+}
+
+.shared-core {
+  margin: 0 0 17px;
+  border-left: 5px solid #2f75b5;
+  background: linear-gradient(180deg, #fff, #f8fbff);
+}
+
 .memorize-map {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
