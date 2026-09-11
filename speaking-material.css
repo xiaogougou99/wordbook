@@ -261,12 +261,6 @@ body {
   margin: 8px 0 0;
 }
 
-.shared-core {
-  margin: 0 0 17px;
-  border-left: 5px solid #2f75b5;
-  background: linear-gradient(180deg, #fff, #f8fbff);
-}
-
 .memorize-map {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
