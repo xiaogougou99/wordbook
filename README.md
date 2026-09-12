@@ -6,7 +6,9 @@
 
 - `index.html`：页面骨架
 - `data.js`：词库数据和不可变 ID 注册表
+- `wordbook-campus-data.js`：从校园英语截图整理的单词与固定词组
 - `listening-data.js`：听力讲座词库（含稳定 ID、IPA、词性、释义和音频链接）
+- `listening-campus-data.js`：从校园英语截图整理的完整语句
 - `speaking-material.docx`：口语材料原始 Word 文件副本
 - `speaking-material.html`：从 Word 原文生成的网页阅读版
 - `speaking-material.css`：口语材料的电脑和手机阅读样式
