@@ -339,8 +339,131 @@ body {
 
 @media print {
   body { background: #fff; }
+  .material-editor-toolbar { display: none !important; }
   .material-document { width: 100%; padding: 0; }
   .material-card,
   .example-card,
   .engine-card { break-inside: avoid; box-shadow: none; }
+}
+
+.material-editor-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px max(14px, calc((100vw - 1080px) / 2 + 18px));
+  border-bottom: 1px solid #ccd7e5;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 5px 18px rgba(22, 43, 70, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+.material-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.material-editor-toolbar button,
+.material-delete-button {
+  border: 1px solid #9eb4cb;
+  border-radius: 999px;
+  background: #fff;
+  color: #173a63;
+  cursor: pointer;
+  font: 700 14px/1.2 Aptos, Calibri, "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+.material-editor-toolbar button {
+  min-height: 36px;
+  padding: 8px 14px;
+}
+
+.material-editor-toolbar button:hover:not(:disabled) {
+  border-color: #2f75b5;
+  background: #edf5fc;
+}
+
+.material-editor-toolbar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.material-editor-toolbar .danger {
+  border-color: #d9a3a3;
+  color: #a32d2d;
+}
+
+.material-editor-status {
+  margin: 0;
+  color: #596579;
+  font-size: 13px;
+  text-align: right;
+}
+
+.material-editor-status[data-state="dirty"],
+.material-editor-status[data-state="error"] {
+  color: #b33131;
+  font-weight: 700;
+}
+
+.material-editor-status[data-state="saved"] {
+  color: #187249;
+  font-weight: 700;
+}
+
+.material-editor-mode [contenteditable="true"] {
+  border-radius: 6px;
+  outline: 2px dashed rgba(47, 117, 181, 0.45);
+  outline-offset: 3px;
+  cursor: text;
+}
+
+.material-editor-mode .material-card,
+.material-editor-mode .example-card,
+.material-editor-mode .engine-card,
+.material-editor-mode .memorize-map > section,
+.material-editor-mode .closing-rule {
+  position: relative;
+  padding-top: 48px;
+}
+
+.material-delete-button {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 5;
+  padding: 7px 11px;
+  border-color: #d9a3a3;
+  color: #a32d2d;
+  font-size: 12px;
+}
+
+.material-delete-button:hover {
+  background: #fff0f0;
+}
+
+@media (max-width: 760px) {
+  .material-editor-toolbar {
+    position: static;
+    align-items: stretch;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .material-editor-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .material-editor-toolbar button {
+    width: 100%;
+  }
+
+  .material-editor-status {
+    text-align: left;
+  }
 }
