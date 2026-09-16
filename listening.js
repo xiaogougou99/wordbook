@@ -231,7 +231,7 @@
   }
 
   function showRoute(route) {
-    const selected = ["listening", "speaking", "writing"].includes(route) ? route : "wordbook";
+    const selected = ["listening", "cloze", "speaking", "writing"].includes(route) ? route : "wordbook";
     for (const view of pageViews) view.hidden = view.dataset.view !== selected;
     for (const button of routeButtons) {
       const active = button.dataset.route === selected;
@@ -247,7 +247,7 @@
       window.ListeningStatusSync.start();
       window.ListeningMeaningSync.start();
     }
-    if (["speaking", "writing"].includes(selected)) requestAnimationFrame(resizeMaterialFrames);
+    if (["cloze", "speaking", "writing"].includes(selected)) requestAnimationFrame(resizeMaterialFrames);
   }
 
   routeButtons.forEach((button) => {

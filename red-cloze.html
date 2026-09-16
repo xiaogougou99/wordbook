@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f3ef">
+  <meta name="description" content="从真题截图提取的红色错词与搭配填空练习">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'">
+  <title>红词搭配填空</title>
+  <link rel="stylesheet" href="./red-cloze.css">
+</head>
+<body>
+  <main class="cloze-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">RED WORD CLOZE</p>
+        <h1>红词搭配填空</h1>
+        <p class="hero-copy">只收截图中的红色答案；遇到固定搭配或短语，保留必要的前后文一起练。</p>
+      </div>
+      <div class="hero-count" aria-label="材料统计">
+        <strong id="total-count">74</strong>
+        <span>个红色词位</span>
+      </div>
+    </header>
+
+    <section class="stats-grid" aria-label="练习进度">
+      <article><strong id="source-count">27</strong><span>套有效截图</span></article>
+      <article><strong id="unique-count">70</strong><span>个不同答案</span></article>
+      <article><strong id="mastered-count">0</strong><span>已答对</span></article>
+      <article><strong id="wrong-count">0</strong><span>错题记录</span></article>
+    </section>
+
+    <section class="practice-card" aria-labelledby="practice-title">
+      <div class="practice-heading">
+        <div>
+          <p class="section-label">PRACTICE</p>
+          <h2 id="practice-title">看搭配，补红词</h2>
+        </div>
+        <span id="position" class="position">1 / 74</span>
+      </div>
+
+      <div class="filters">
+        <label>
+          <span>范围</span>
+          <select id="pool-mode">
+            <option value="all">全部红词</option>
+            <option value="unmastered">只练未答对</option>
+            <option value="wrong">只练错题</option>
+          </select>
+        </label>
+        <label>
+          <span>来源</span>
+          <select id="source-filter">
+            <option value="all">全部题目</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+      <article id="question-card" class="question-card">
+        <div class="source-line">
+          <span id="question-date" class="date-chip"></span>
+          <span id="question-source" class="source-name"></span>
+        </div>
+        <p class="instruction">根据真实搭配填写完整单词：</p>
+        <p id="question-phrase" class="question-phrase" aria-live="polite"></p>
+        <p id="letter-hint" class="letter-hint"></p>
+
+        <form id="answer-form" class="answer-form">
+          <label for="answer-input">你的答案</label>
+          <div class="answer-row">
+            <input id="answer-input" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="32" placeholder="输入完整单词">
+            <button type="submit" class="primary-button">检查</button>
+          </div>
+        </form>
+
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        <p id="full-phrase" class="full-phrase" hidden></p>
+
+        <div class="question-actions">
+          <button id="reveal-button" type="button" class="secondary-button">显示答案</button>
+          <button id="shuffle-button" type="button" class="secondary-button">随机一题</button>
+          <button id="next-button" type="button" class="next-button">下一题</button>
+        </div>
+      </article>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <strong>当前范围没有题目</strong>
+        <p>可以切换到“全部红词”，或选择其他来源。</p>
+      </div>
+    </section>
+
+    <section class="reference-card" aria-labelledby="reference-title">
+      <div class="reference-heading">
+        <div>
+          <p class="section-label">REFERENCE</p>
+          <h2 id="reference-title">红词与搭配总表</h2>
+        </div>
+        <button id="reset-button" type="button" class="reset-button">清空练习记录</button>
+      </div>
+      <p class="reference-note">按截图日期和题目整理。红色为原截图中的错词；同一个答案在不同搭配中会分别保留。</p>
+      <div id="reference-list" class="reference-list"></div>
+    </section>
+  </main>
+
+  <script src="./red-cloze-data.js"></script>
+  <script src="./red-cloze.js"></script>
+</body>
+</html>

@@ -22,6 +22,7 @@
     <nav class="site-nav" aria-label="内容切换">
       <button type="button" class="site-nav-button is-active" data-route="wordbook" aria-current="page">单词本</button>
       <button type="button" class="site-nav-button" data-route="listening">句子本</button>
+      <button type="button" class="site-nav-button" data-route="cloze">红词填空</button>
       <button type="button" class="site-nav-button" data-route="speaking">口语材料</button>
       <button type="button" class="site-nav-button" data-route="writing">写作</button>
     </nav>
@@ -71,6 +72,18 @@
         data-material-frame="speaking"
         src="./speaking-material.html"
         title="口语材料"
+        loading="eager"
+        scrolling="no"
+      ></iframe>
+    </section>
+
+    <section id="cloze-view" class="page-view cloze-view" data-view="cloze" hidden>
+      <iframe
+        id="red-cloze-frame"
+        class="speaking-material-frame"
+        data-material-frame="cloze"
+        src="./red-cloze.html"
+        title="红词搭配填空"
         loading="eager"
         scrolling="no"
       ></iframe>

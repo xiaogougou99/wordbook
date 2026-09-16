@@ -71,7 +71,7 @@ h1 {
 
 .site-nav {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px;
   margin-bottom: 14px;
   padding: 5px;
@@ -508,7 +508,8 @@ h1 {
 }
 
 .speaking-view,
-.writing-view {
+.writing-view,
+.cloze-view {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -639,7 +640,8 @@ h1 {
     padding: 0 5px;
   }
   .speaking-view,
-  .writing-view { border-radius: 12px; }
+  .writing-view,
+  .cloze-view { border-radius: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
