@@ -4,7 +4,8 @@
   const article = document.querySelector(".material-document");
   if (!article) return;
 
-  const storageKey = `toefl-material-editor:${location.pathname}:v1`;
+  const editorVersion = article.dataset.editorVersion || "1";
+  const storageKey = `toefl-material-editor:${location.pathname}:v${editorVersion}`;
   const originalMarkup = article.innerHTML;
   let editing = false;
   let dirty = false;

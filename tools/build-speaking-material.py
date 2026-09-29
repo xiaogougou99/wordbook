@@ -227,11 +227,12 @@ def document_html(document: DocumentObject, source_hash: str) -> str:
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'">
   <title>口语材料</title>
   <link rel="stylesheet" href="./speaking-material.css">
+  <script src="./material-editor.js" defer></script>
 </head>
 <body>
   <!-- source-sha256: {source_hash} -->
   <!-- source-blocks: {paragraph_count} paragraphs, {table_count} tables -->
-  <article class="speaking-document">
+  <article class="material-document speaking-document" data-editor-version="{source_hash[:12]}">
       {body}
   </article>
 </body>
