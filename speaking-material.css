@@ -396,6 +396,187 @@ body {
   color: #3f315e;
 }
 
+.coverage-strip {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.coverage-stat {
+  min-width: 0;
+  padding: 12px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.coverage-stat strong {
+  display: block;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1.1;
+}
+
+.coverage-stat span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 12px;
+}
+
+.section-intro {
+  margin: -5px 2px 17px;
+  color: #5f6877;
+  line-height: 1.7;
+}
+
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.writing-document .example-card {
+  border-left-color: #7660a8;
+}
+
+.demo-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.demo-card {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #d9d0ee;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fff, #fbfaff);
+  box-shadow: 0 8px 24px rgba(73, 51, 116, 0.07);
+}
+
+.chain-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #eee9f8;
+  color: #5b438c;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.prompt-summary {
+  margin: 0;
+  color: #35284f;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.sentence-walkthrough {
+  display: grid;
+  gap: 12px;
+  margin: 17px 0 0;
+  padding: 0;
+  counter-reset: demo-sentence;
+  list-style: none;
+}
+
+.sentence-walkthrough li {
+  position: relative;
+  padding: 13px 14px 13px 49px;
+  border: 1px solid #e3deed;
+  border-radius: 12px;
+  background: #fff;
+  counter-increment: demo-sentence;
+}
+
+.sentence-walkthrough li::before {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border-radius: 8px;
+  background: #6550a2;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  content: counter(demo-sentence);
+}
+
+.sentence-walkthrough .memory-text {
+  margin: 0;
+}
+
+.sentence-note {
+  margin: 7px 0 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.sentence-note strong {
+  color: #51406f;
+}
+
+.mapping-details {
+  margin-top: 18px;
+  border: 1px solid #d9d0ee;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.mapping-details summary {
+  padding: 17px 19px;
+  color: #473477;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mapping-details[open] summary {
+  border-bottom: 1px solid #e5e0ef;
+  background: #f7f4fb;
+}
+
+.mapping-table-wrap {
+  max-height: 640px;
+  overflow: auto;
+}
+
+.mapping-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.mapping-table th,
+.mapping-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ece8f2;
+  text-align: left;
+  vertical-align: top;
+}
+
+.mapping-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #eee9f8;
+  color: #473477;
+}
+
+.mapping-table tbody tr:nth-child(even) {
+  background: #fcfbfe;
+}
+
 @media (max-width: 760px) {
   .material-document {
     padding: 14px 10px 46px;
@@ -409,8 +590,13 @@ body {
   }
 
   .material-grid,
-  .memorize-map {
+  .memorize-map,
+  .example-grid {
     grid-template-columns: 1fr;
+  }
+
+  .coverage-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .material-card,
@@ -438,6 +624,24 @@ body {
   .memory-text {
     font-size: 16.5px;
     line-height: 1.75;
+  }
+
+  .demo-card {
+    padding: 18px 14px;
+    border-radius: 15px;
+  }
+
+  .sentence-walkthrough li {
+    padding: 46px 13px 13px;
+  }
+
+  .sentence-walkthrough li::before {
+    top: 12px;
+    left: 13px;
+  }
+
+  .mapping-table {
+    min-width: 650px;
   }
 }
 
@@ -529,6 +733,7 @@ body {
 .material-editor-mode .material-card,
 .material-editor-mode .example-card,
 .material-editor-mode .engine-card,
+.material-editor-mode .demo-card,
 .material-editor-mode .memorize-map > section,
 .material-editor-mode .closing-rule {
   position: relative;

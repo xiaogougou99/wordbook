@@ -93,7 +93,7 @@
 
   function addDeleteButtons() {
     article
-      .querySelectorAll(".material-card, .example-card, .engine-card, .memorize-map > section, .closing-rule")
+      .querySelectorAll(".material-card, .example-card, .engine-card, .demo-card, .memorize-map > section, .closing-rule")
       .forEach((card) => {
         if (card.querySelector(":scope > .material-delete-button")) return;
         const button = document.createElement("button");
