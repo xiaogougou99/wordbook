@@ -526,6 +526,30 @@ body {
   color: #51406f;
 }
 
+.demo-prompt-details {
+  margin-top: 13px;
+  border-radius: 12px;
+}
+
+.demo-prompt-body {
+  padding: 13px 15px 4px;
+  color: #4f465d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.demo-prompt-body p {
+  margin: 0 0 10px;
+}
+
+.demo-word-count {
+  margin: 14px 0 0;
+  color: #5b438c;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: right;
+}
+
 .mapping-details {
   margin-top: 18px;
   border: 1px solid #d9d0ee;

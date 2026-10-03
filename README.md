@@ -11,8 +11,11 @@
 - `listening-campus-data.js`：从校园英语截图整理的完整语句
 - `speaking-material.docx`：口语材料原始 Word 文件副本
 - `speaking-material.html`：从 Word 原文生成的网页阅读版
+- `writing-material.docx`：18 道 GTRT 带星学术写作完整答案 Word 文件副本
+- `writing-material.html`：保留 9 条写作链和 4 个通用例子，并合并最新 18 道完整答案
 - `speaking-material.css`：口语材料的电脑和手机阅读样式
 - `tools/build-speaking-material.py`：接受 Word 中可见的修订并生成确定性网页文件
+- `tools/build-writing-material.py`：接受 Word 中可见的修订并更新写作页完整示范区
 - `app.js`：原生词本页面渲染
 - `listening.js`：听力讲座未会/已会界面、释义行内编辑和站内入口
 - `audio.js`：提前缓存真实词典录音，首次点击无网络等待并用自然美音即时回退
